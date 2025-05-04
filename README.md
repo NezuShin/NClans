@@ -34,4 +34,4 @@ Simple cross-server clans with economy and placeholders support
 
 ### How it works?
 
-Data from database cached in every server. When players change database state (create/join/leave clan, etc), servers reload their cache. Every command interaction running async and always communicates with database, cache is synchronous and read-only. Plugin messaging between server via bungeecord api (faster; if available; Velocity also supports it) or mysql database (slower; not requires proxy or online players on every server) for sending chat messages and refreshing cache. 
+Data from database cached in every server. When players change database state (create/join/leave clan, etc), servers reload their cache. Every command interaction runs async and always communicates with database, cache is synchronous and read-only. Plugin messaging between server via bungeecord api (faster; if available; Velocity also supports it) or mysql database (slower; not requires proxy or online players on every server) for sending chat messages and refreshing cache. 
