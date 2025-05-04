@@ -20,7 +20,7 @@ Simple cross-server clans with economy and placeholders support
 
 ### Placeholders
 
-- `%nclans_clan_displayname%` - Player's clan disaplayname with additional space symbol before displayname. Empty if player is not in clan
+- `%nclans_clan_displayname%` - Player's clan displayname with additional space symbol before displayname. Empty if player is not in clan
 - `%nclans_clan_displayname_minimessage%` - Same as previous, but in Paper's minimessage format 
 
 ### Permissions
