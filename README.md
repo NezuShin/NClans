@@ -7,6 +7,8 @@ Simple cross-server clans with economy and placeholders support
 - Clan taxes (May be disabled)
 - Seamless cross-server work (With bungeecord or without it)
 - Cross server clan home teleportation (Only in one proxy instance; May be disabled)
+- Simple player online tracking system
+- Clan leave/join cooldown for players
 
 ### Requirements 
 
@@ -21,6 +23,14 @@ Simple cross-server clans with economy and placeholders support
 - `%nclans_clan_displayname%` - Player's clan disaplayname with additional space symbol before displayname. Empty if player is not in clan
 - `%nclans_clan_displayname_minimessage%` - Same as previous, but in Paper's minimessage format 
 
+### Permissions
+
+- `nclans.admin` - access for command `/clans admin`
+- `nclans.displayname.change` - change clan display name (change colors only)
+
+### Admin commands
+- `/clans admin reload` - reload config
+- `/clans admin refresh` - refresh cache for this server
 
 ### How it works?
 
