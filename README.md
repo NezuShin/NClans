@@ -10,7 +10,7 @@ Simple cross-server clans with economy and placeholders support
 - Simple player online tracking system
 - Clan leave/join cooldown for players
 
-### Requirements 
+### Dependencies 
 
 - [AnvilORM](https://github.com/NezuShin/AnvilORM/releases/tag/V1.0.0) 
 - [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/)
