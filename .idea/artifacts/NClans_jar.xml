@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="NClans:jar">
+    <output-path>F:/minecraft-servers/v3-tests/plugins</output-path>
+    <root id="archive" name="NClans.jar">
+      <element id="module-output" name="NClans.main" />
+      <element id="dir-copy" path="$PROJECT_DIR$/src/main/resources" />
+    </root>
+  </artifact>
+</component>

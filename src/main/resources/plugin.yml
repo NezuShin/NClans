@@ -1,0 +1,10 @@
+name: NClans
+version: '1.0-SNAPSHOT'
+main: su.nezushin.clans.NClans
+api-version: '1.21'
+softdepend:
+  - Vault
+commands:
+  clan:
+    aliases:
+      - clans

@@ -1,0 +1,118 @@
+messages:
+  err-in-clan: '&b&lclans &6>>&r &r&cFor this action you must not be in a clan'
+  err-not-in-clan: '&b&lclans &6>>&r &r&cFor this action you must be in a clan'
+  err-clan-already-exists: '&b&lclans &6>>&r &r&cA clan with that name already exists'
+  err-wrong-name: '&b&lclans &6>>&r &r&cInvalid name! Only Latin letters are allowed.'
+  err-incorrect-number: '&b&lclans &6>>&r <red>Incorrect number!'
+  delete-r-u-shure:
+    - "&b&lclans &6>>&r <#008f9a>Are you sure you want to delete your clan? <click:run_command:'/clan delete confirm'><bold><#08c0c2>Confirm"
+  owner-r-u-shure:
+    - "&b&lclans &6>>&r <#008f9a>Are you sure you want to transfer the clan leader privileges? <click:run_command:'/clan owner {owner} confirm'> <bold><#08c0c2>Confirm"
+  u-dont-have-permission: '&b&lclans &6>>&r &r&cInsufficient permissions!'
+  player-create-clan: '&b&lclans &6>>&r <#008f9a>Player <#08c0c2>{player}&r<#008f9a> created clan <#08c0c2>{clan}&r'
+  member-not-found: '&b&lclans &6>>&r &r&cClan member not found!'
+  unknown-role: '&b&lclans &6>>&r &r&cUnknown role'
+  player-is-member: '&b&lclans &6>>&r <#008f9a>Player <#08c0c2>{player}<#008f9a> is a regular member of the clan'
+  player-is-curator: '&b&lclans &6>>&r <#008f9a>Player <#08c0c2>{player}<#008f9a> is a curator of the clan'
+  owner-moved: '&b&lclans &6>>&r <#008f9a>Clan leader changed'
+  role-updated: '&b&lclans &6>>&r <#008f9a>Role for player <#08c0c2>{player}<#008f9a> updated'
+  player-delete-clan: '&b&lclans &6>>&r <#008f9a>Player <#08c0c2>{player}<#008f9a> deleted clan <#08c0c2>{clan}&r'
+  player-not-found: '&b&lclans &6>>&r &r&cPlayer not found!'
+  player-already-in-clan: '&b&lclans &6>>&r &r&cPlayer is already in a clan!'
+  invite-sent: '&b&lclans &6>>&r <#008f9a>Invitation sent'
+  invite:
+    - "&b&lclans &6>>&r <#08c0c2>{inviter}<#008f9a> invites you to join clan <#08c0c2>{clan}&r. <click:run_command:'/clan accept {clan}'><bold><#08c0c2>Accept invitation"
+  some-shit-happened: '&b&lclans &6>>&r &rSome shit happened.'
+  u-joined-clan: '&b&lclans &6>>&r <#008f9a>You joined clan <#08c0c2>{clan}&r<#008f9a>.'
+  clan-info:
+    - "&b&lclans &6>>&r &r&7-----------Clan Information-----------"
+    - "&b&lclans &6>>&r &r<#008f9a>Clan Name:&r <#08c0c2>{display-name}"
+    - "&b&lclans &6>>&r &r<#008f9a>Leader:&r <#08c0c2>{owner}"
+    - "&b&lclans &6>>&r &r<#008f9a>Curators: "
+    - "&b&lclans &6>>&r &r{curators}"
+    - "&b&lclans &6>>&r &r<#008f9a>Members:"
+    - "&b&lclans &6>>&r &r{members}"
+    - "&b&lclans &6>>&r &r&7----------------------------------------"
+  clan-info-format-list-empty: "<#08c0c2><none>"
+  clan-info-format-join-string: ', '
+  clan-info-curators-format: '<#08c0c2>{player}<#008f9a>{join-string}{next}'
+  clan-info-members-format: '<#08c0c2>{player}<#008f9a>{join-string}{next}'
+  u-cannot-leave-ur-clan: "&b&lclans &6>>&r &r&cYou can't leave your own clan!"
+  u-left-clan: '&b&lclans &6>>&r <#008f9a>You left the clan.'
+  u-kick-member: '&b&lclans &6>>&r <#008f9a>You kicked player <#08c0c2>{player}&r<#008f9a> from the clan.'
+  u-cannot-kick-urself: '&b&lclans &6>>&r &r&cYou can\'t kick yourself'
+  u-have-been-kicked: '&b&lclans &6>>&r &r&cYou have been kicked out of the clan.'
+  clan-not-found: '&b&lclans &6>>&r &r&cClan not found'
+  player-join-clan: '&b&lclans &6>>&r <#008f9a>Player <#08c0c2>{player}<#008f9a> has joined the clan'
+  player-left-clan: '&b&lclans &6>>&r <#008f9a>Player <#08c0c2>{player}<#008f9a> has left the clan'
+  player-kicked-from-clan: '&b&lclans &6>>&r <#008f9a>Player <#08c0c2>{player}<#008f9a> was removed by <#08c0c2>{sender}<#008f9a> from the clan'
+  home-not-found: '&b&lclans &6>>&r &r&cThe clan does not have a set home point!'
+  home-set: '&b&lclans &6>>&r <#008f9a>A new clan home point has been set'
+  home-deleted: '&b&lclans &6>>&r &r&cThe clan home point has been deleted'
+  teleporting: '&b&lclans &6>>&r <#008f9a>Teleporting...'
+  teleport-cancelled: '&b&lclans &6>>&r <red>Teleportation cancelled.'
+  teleport-scheduled: '&b&lclans &6>>&r <#008f9a>Teleportation scheduled in <#08c0c2>5<reset> <#008f9a>seconds. Do not move!'
+  u-already-send-invite: '&b&lclans &6>>&r &r&cYou have already sent an invitation to this player'
+  friendlyfire-on: '&b&lclans &6>>&r <#008f9a>Friendly fire &cenabled&r'
+  friendlyfire-off: '&b&lclans &6>>&r <#008f9a>Friendly fire &adisabled&r'
+  invite-not-found: '&b&lclans &6>>&r &r&cInvitation not found'
+  about:
+    - "&b&lclans &6>>&r &r&7---------------Commands---------------"
+    - "&b&lclans &6>>&r <reset><#008f9a><click:suggest_command:'/clan create'>/clan create <#08c0c2><name> <#008f9a>- create a clan"
+    - "&b&lclans &6>>&r <reset><#008f9a><click:suggest_command:'/clan delete'>/clan delete <#008f9a>- delete a clan"
+    - "&b&lclans &6>>&r <reset><#008f9a><click:suggest_command:'/clan invite'>/clan invite <#08c0c2><name> <#008f9a>- invite a player to the clan"
+    - "&b&lclans &6>>&r <reset><#008f9a><click:suggest_command:'/clan accept'>/clan accept <#08c0c2><name> <#008f9a>- join a clan via invitation"
+    - "&b&lclans &6>>&r <reset><#008f9a><click:suggest_command:'/clan kick'>/clan kick <#08c0c2><name> <#008f9a>- remove a player from the clan"
+    - "&b&lclans &6>>&r <reset><#008f9a><click:suggest_command:'/clan role'>/clan role <#08c0c2><name> [role] <#008f9a>- adjust player's role"
+    - "&b&lclans &6>>&r <reset><#008f9a><click:suggest_command:'/clan friendlyfire'>/clan friendlyfire <#08c0c2><true/false> <#008f9a>- toggle friendly fire"
+    - "&b&lclans &6>>&r <reset><#008f9a><click:suggest_command:'/clan permissions'>/clan permissions <#08c0c2>[permission] [group]<#008f9a>- adjust clan permissions"
+    - "&b&lclans &6>>&r <reset><#008f9a><click:suggest_command:'/clan info'>/clan info <#08c0c2>[clan] <#008f9a>- show information about a clan"
+    - "&b&lclans &6>>&r <reset><#008f9a><click:suggest_command:'/clan leave'>/clan leave <#008f9a>- leave the clan"
+    - "&b&lclans &6>>&r <reset><#008f9a><click:suggest_command:'/clan accept'>/clan accept <#08c0c2><clan> <#008f9a>- accept a clan invitation"
+    - "&b&lclans &6>>&r <reset><#008f9a><click:suggest_command:'/clan taxes'>/clan taxes <#008f9a>- view daily clan expenses"
+    - "&b&lclans &6>>&r <reset><#008f9a><click:suggest_command:'/clan deposit'>/clan deposit <#08c0c2>[amount] <#008f9a>- send money to the clan's balance"
+    - "&b&lclans &6>>&r <reset><#008f9a><click:suggest_command:'/clan balance'>/clan balance <#008f9a>- check the clan's balance"
+    - "&b&lclans &6>>&r <reset><#008f9a><click:suggest_command:'/clan delhome'>/clan delhome <#008f9a>- delete home point"
+    - "&b&lclans &6>>&r <reset><#008f9a><click:suggest_command:'/clan home'>/clan home <#008f9a>- teleport to home point"
+    - "&b&lclans &6>>&r <reset><#008f9a><click:suggest_command:'/clan displayname'>/clan displayname <#08c0c2><name> <#008f9a>- set colored clan name"
+    - "&b&lclans &6>>&r &r&7----------------------------------------"
+  change-displayname-usage: '&b&lclans &6>>&r &cDisplayed name should match the actual clan name. Only color setting is allowed.'
+  displayname-changed: '&b&lclans &6>>&r <#008f9a>Current displayed name: &r{clan}'
+
+  clan-group-members: 'Clan members'
+  clan-group-curators: 'Clan curators'
+  clan-group-owner: 'Clan leader'
+
+
+  permission-show-format-prefix: '&b&lclans &6>>&r &r&7----------Configure Clan Permissions----------'
+  permission-show-format: "&b&lclans &6>>&r <reset><#008f9a><click:suggest_command:'/clan permissions {permission} '>{permission_display}: <#08c0c2>{group_display}"
+  permission-show-format-suffix: '&b&lclans &6>>&r &r&7----------------------------------------'
+
+  clan-action-change-displayname: 'Set colored name'
+  clan-action-invite-members: 'Invite new members'
+  clan-action-kick-members: 'Kick members'
+  clan-action-promote-curators: 'Appoint curators'
+  clan-action-change-friendly-fire: 'Toggle friendly fire'
+  clan-action-use-home: 'Teleport to home point'
+  clan-action-set-home: 'Set home point'
+  u-dont-have-enough-money: '&b&lclans &6>>&r <red>You don’t have enough money for this!'
+  tax-show-format-prefix: '&b&lclans &6>>&r &r&7------------Viewing Clan Taxes-------------'
+  tax-show-format: "&b&lclans &6>>&r <reset><#008f9a>{tax_display}: <#08c0c2>{tax_price}"
+  tax-show-format-suffix:
+    - '&b&lclans &6>>&r &r&7----------------------------------------'
+    - '&b&lclans &6>>&r <reset><#008f9a>Total daily costs:<reset> <#08c0c2>{tax_price_total}'
+    - '&b&lclans &6>>&r <reset><#008f9a>The current balance will cover <#08c0c2>{days_remaining}<#008f9a> days'
+    - '&b&lclans &6>>&r &r&7----------------------------------------'
+  clan-tax-default: 'Base fee'
+  clan-tax-online-players: 'Fee for online players'
+  clan-tax-offline-players: 'Fee for offline players'
+  clan-tax-additional-max-players: 'Penalty for too many players'
+  clan-tax-additional-min-players: 'Penalty for too few players'
+  clan-deposit-success: '&b&lclans &6>>&r <reset><#008f9a>Clan balance replenished. Now it’s <#08c0c2>{balance}<#008f9a>.'
+  clan-balance:
+    - '&b&lclans &6>>&r <reset><#008f9a>Clan balance: <#08c0c2>{balance}<#008f9a>.'
+    - '&b&lclans &6>>&r <reset><#008f9a>This amount covers <#08c0c2>{days_remaining}<#008f9a> days of clan existence.'
+  tax-delete-clan: '&b&lclans &6>>&r <#008f9a>Clan <#08c0c2>{clan}<reset><#008f9a> was deleted due to unpaid taxes.'
+  tax-taken: '&b&lclans &6>>&r <#008f9a>Amount <#08c0c2>{tax_price_total}<#008f9a> was taken from the clan balance as taxes.'
+  wait-leave-cooldown: '&b&lclans &6>>&r <red>To perform this action, you need to wait 24 hours after leaving the previous clan.'
+  cannot-invite-cooldown: '&b&lclans &6>>&r <red>The player exited their previous clan recently.'

@@ -1,0 +1,46 @@
+mysql:
+  host: '127.0.0.1'
+  port: 3306
+  database: 'storage'
+  user: 'root'
+  passowrd: 'root'
+  ssl: true
+
+vault:
+  use-vault: true
+  create-clan-price: 15000
+  taxes:
+    default: 100
+    online-player: 100
+    offline-player: 1500
+    #Clan with one member prevention
+    min-players-additional: 3000
+    #tax for each additional player
+    max-players-additional: 1000
+
+
+#How often need to take taxes; In milliseconds
+taxes-take-period: 86400000
+#24 * 60 * 60 * 1000; Once a day
+
+limitations:
+  #Offline player - player that been not online for some time; In milliseconds
+  offline-player-threshold: 172800000
+  #2 * 24 * 60 * 60 * 1000; Two days
+
+  #Not a real limitations. It just causes additional taxes.
+  max-clan-members: 15
+  min-clan-members: 1
+
+
+  #Cooldown for players who leave clan. Player can join another clan only after cooldown. Zero for disable; In milliseconds
+  leave-cooldown: 86400000
+  #24 * 60 * 60 * 1000; One day
+
+
+home:
+  #Delay before teleportation. In ticks
+  teleport-delay: 100
+  #5*20
+  #Allow use command clan sethome
+  allow-set: false
