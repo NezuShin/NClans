@@ -15,7 +15,7 @@ Simple cross-server clans with economy and placeholders support
 - [AnvilORM](https://github.com/NezuShin/AnvilORM/releases/tag/V1.0.0) 
 - [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/)
 - [Vault](https://www.spigotmc.org/resources/vault.34315/) (Optional; If you need economy support)
-- MYSQL
+- MYSQL (Optional; If you need cross-server work)
 - Papermc server or its fork
 
 ### Placeholders
