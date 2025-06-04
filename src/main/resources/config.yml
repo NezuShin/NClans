@@ -1,10 +1,15 @@
-mysql:
-  host: '127.0.0.1'
-  port: 3306
-  database: 'storage'
-  user: 'root'
-  passowrd: 'root'
-  ssl: true
+
+
+database:
+  #Use sqlte or mysql
+  use-mysql: true
+  mysql:
+    host: '127.0.0.1'
+    port: 3306
+    database: 'storage'
+    user: 'root'
+    password: 'root'
+    ssl: true
 
 vault:
   use-vault: true
@@ -18,7 +23,6 @@ vault:
     #tax for each additional player
     max-players-additional: 1000
 
-
 #How often need to take taxes; In milliseconds
 taxes-take-period: 86400000
 #24 * 60 * 60 * 1000; Once a day
@@ -30,7 +34,7 @@ limitations:
 
   #Not a real limitations. It just causes additional taxes.
   max-clan-members: 15
-  min-clan-members: 1
+  min-clan-members:
 
 
   #Cooldown for players who leave clan. Player can join another clan only after cooldown. Zero for disable; In milliseconds

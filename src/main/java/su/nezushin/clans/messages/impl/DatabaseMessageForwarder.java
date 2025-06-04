@@ -1,6 +1,7 @@
 package su.nezushin.clans.messages.impl;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import su.nezushin.clans.NClans;
 import su.nezushin.clans.db.NClanAvailableServer;
 import su.nezushin.clans.db.NClanMessage;
@@ -16,10 +17,11 @@ import java.util.UUID;
 
 public class DatabaseMessageForwarder implements Runnable, MessageForwarder {
 
-    int id;
+    int id = -1;
 
     public DatabaseMessageForwarder() {
-        id = Bukkit.getScheduler().runTaskTimerAsynchronously(NClans.getInstance(), this, 40, 40).getTaskId();
+        if (Config.useMysql)
+            id = Bukkit.getScheduler().runTaskTimerAsynchronously(NClans.getInstance(), this, 40, 40).getTaskId();
     }
 
     @Override
@@ -28,7 +30,8 @@ public class DatabaseMessageForwarder implements Runnable, MessageForwarder {
             Bukkit.getScheduler().scheduleSyncDelayedTask(NClans.getInstance(), i::exec);
             NClans.getInstance().getDatabase().getMessages().delete().where("id", i.getId()).compete();
         }
-        NClans.getInstance().getDatabase().getAvailableServers().update().replace(new NClanAvailableServer());
+        NClans.getInstance().getDatabase().getAvailableServers().update().replace(
+                new NClanAvailableServer(Config.server, Bukkit.getOnlinePlayers().stream().map(Player::getName).toList()));
     }
 
     @Override
@@ -44,7 +47,11 @@ public class DatabaseMessageForwarder implements Runnable, MessageForwarder {
                 byte[] arr = msgbytes.toByteArray();
 
                 var messages = new ArrayList<NClanMessage>();
-                for (var i : NClans.getInstance().getDatabase().getAvailableServers().query().where("server", "!=", Config.server).completeAsList()) {
+                for (var i : NClans.getInstance().getDatabase().getAvailableServers()
+                        .query()
+                        .where("server", "!=", Config.server)
+                        .where("expire", ">", System.currentTimeMillis())
+                        .completeAsList()) {
                     messages.add(new NClanMessage(i.getServer(), arr));
                 }
                 NClans.getInstance().getDatabase().getMessages().update().replace(messages);
@@ -58,11 +65,12 @@ public class DatabaseMessageForwarder implements Runnable, MessageForwarder {
 
     @Override
     public void close() {
-        Bukkit.getScheduler().cancelTask(id);
+        if (id != -1)
+            Bukkit.getScheduler().cancelTask(id);
     }
 
     @Override
     public boolean isAvailable() {
-        return true;
+        return Config.useMysql;
     }
 }

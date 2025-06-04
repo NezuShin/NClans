@@ -3,8 +3,11 @@ package su.nezushin.clans.cache;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import su.nezushin.clans.NClans;
-import su.nezushin.clans.db.NClan;
+import su.nezushin.clans.cache.playerlist.DatabasePlayerList;
+import su.nezushin.clans.cache.playerlist.PlayerList;
+import su.nezushin.clans.cache.playerlist.ProxyPlayerList;
 import su.nezushin.clans.db.NClanPlayer;
+import su.nezushin.clans.util.Config;
 
 import java.util.*;
 
@@ -14,13 +17,14 @@ public class PlayerCache {
 
     private Map<Player, CachedPlayer> cache = new HashMap<>();
 
-    private ProxyPlayerList proxyPlayerList = new ProxyPlayerList();
+    private final PlayerList playerList;
 
     public PlayerCache() {
+        playerList = Config.useMysql ? new DatabasePlayerList() : new ProxyPlayerList();
     }
 
     public void close() {
-        proxyPlayerList.close();
+        playerList.close();
     }
 
     public List<String> getClanMembers(String clan) {
@@ -52,7 +56,7 @@ public class PlayerCache {
     }
 
     public List<String> getOnlinePlayers() {
-        return proxyPlayerList.getPlayers();
+        return playerList.getPlayers();
     }
 
     public boolean canDamage(Player p1, Player p2) {
@@ -74,8 +78,16 @@ public class PlayerCache {
         var cache = new HashMap<Player, CachedPlayer>();
         Bukkit.getScheduler().runTaskAsynchronously(NClans.getInstance(), () -> {
             for (var player : players) {
-                var cp = NClans.getInstance().getDatabase().getPlayers().query().where("player", player.getName()).completeAsOne();
+                var id = player.getUniqueId().toString();
+                var cp = NClans.getInstance().getDatabase().getPlayers().query().where("id", id).completeAsOne();
                 if (cp == null) continue;
+                if (!cp.getPlayer().equalsIgnoreCase(player.getName())) {
+                    if (NClans.getInstance().getDatabase().getPlayers().update().set("player", player.getName()).where("id", id).complete() > 0) {
+                        NClans.getInstance().getDatabase().getCooldowns().update().set("player", player.getName()).where("id", id).complete();
+                        NClans.getInstance().getLogger().info("Player changed name from " + cp.getPlayer() + " to " + player.getName() + "; UUID: " + id);
+                    }
+                    cp.setPlayer(player.getName());
+                }
                 var clan = cp.fetchClan();
                 if (clan == null) continue;
                 cache.put(player, new CachedPlayer(clan.getDisplayName(), clan.getName(), clan.isFriendlyFire(), clan.getHome()));

@@ -24,7 +24,7 @@ public class Config {
 
     public static long offlinePlayerThreshold = 2 * 24 * 60 * 60 * 1000, taxesTakePeriod = 24 * 60 * 60 * 1000, clanLeaveCooldown = 24 * 60 * 60 * 1000;
 
-    public static boolean allowSetHome = true, useVault = true;
+    public static boolean allowSetHome = true, useVault = true, useMysql = true;
 
     public static void init() {
         var plugin = NClans.getInstance();
@@ -35,6 +35,8 @@ public class Config {
 
 
         config = plugin.getConfig();
+
+        useMysql = config.getBoolean("database.use-mysql");
 
         useVault = config.getBoolean("vault.use-vault", true);
         clanCreatePrice = config.getDouble("vault.create-clan-price", 0.0);

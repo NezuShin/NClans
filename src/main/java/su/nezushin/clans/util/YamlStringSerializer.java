@@ -8,6 +8,7 @@ import su.nezushin.clans.enums.ClanGroup;
 
 import java.io.StringReader;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class YamlStringSerializer {
@@ -29,6 +30,23 @@ public class YamlStringSerializer {
         var value = conf.get("value");
 
         return value != null ? clazz.cast(value) : null;
+    }
+
+    public static String serializeStringList(List<String> list) {
+
+        var conf = new YamlConfiguration();
+
+        conf.set("value", list);
+
+        return conf.saveToString();
+    }
+
+    public static List<String> deserializStringList(String str) {
+        if (str == null)
+            return null;
+        var conf = YamlConfiguration.loadConfiguration(new StringReader(str));
+
+        return conf.getStringList("value");
     }
 
     public static String serializePermissionMap(Map<ClanAction, ClanGroup> permissions) {

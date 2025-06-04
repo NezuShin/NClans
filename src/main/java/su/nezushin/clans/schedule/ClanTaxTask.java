@@ -8,7 +8,6 @@ import java.util.Random;
 
 public class ClanTaxTask extends BukkitRunnable {
 
-
     public ClanTaxTask() {
         runTaskTimerAsynchronously(NClans.getInstance(), new Random().nextInt(100) + (60 * 20), 5 * 60 * 20);
     }

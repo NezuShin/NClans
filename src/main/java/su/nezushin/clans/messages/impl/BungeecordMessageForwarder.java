@@ -17,8 +17,6 @@ public class BungeecordMessageForwarder implements PluginMessageListener, Messag
 
 
     public BungeecordMessageForwarder() {
-
-
         Bukkit.getMessenger().registerOutgoingPluginChannel(NClans.getInstance(), "BungeeCord");
         Bukkit.getMessenger().registerIncomingPluginChannel(NClans.getInstance(), "BungeeCord", this);
     }

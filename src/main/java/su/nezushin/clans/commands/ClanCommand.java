@@ -64,6 +64,10 @@ public class ClanCommand implements CommandExecutor, TabCompleter {
                     sender.sendMessage("Cache refreshed!");
                     return true;
                 }
+                if (args[1].equalsIgnoreCase("online-players")) {
+                    sender.sendMessage(String.join(", ", NClans.getInstance().getCache().getOnlinePlayers()));
+                    return true;
+                }
 
             }
             return true;
@@ -74,11 +78,11 @@ public class ClanCommand implements CommandExecutor, TabCompleter {
         Bukkit.getScheduler().runTaskAsynchronously(NClans.getInstance(), () -> {
 
             NClanPlayer player = NClans.getInstance().getDatabase().getPlayers().query()
-                    .where("player", p.getName()).completeAsOne();
+                    .where("id", p.getUniqueId().toString()).completeAsOne();
             NClan clan = player != null ? player.fetchClan() : null;
             boolean inClan = clan != null;
             boolean hasCooldown = Config.clanLeaveCooldown > 0 && !inClan && NClans.getInstance().getDatabase().getCooldowns().query()
-                    .where("player", p.getName())
+                    .where("id", p.getUniqueId().toString())
                     .where("expire", ">", System.currentTimeMillis())
                     .completeAsCount() > 0;
 
@@ -130,7 +134,7 @@ public class ClanCommand implements CommandExecutor, TabCompleter {
 
                 clan = new NClan(p, name);
 
-                if (player == null) player = new NClanPlayer(p.getName(), name, false);
+                if (player == null) player = new NClanPlayer(p.getUniqueId().toString(), p.getName(), name, false);
                 player.setClan(name);
 
                 player.save();
@@ -210,7 +214,7 @@ public class ClanCommand implements CommandExecutor, TabCompleter {
                     return;
                 }
 
-                player = new NClanPlayer(p.getName(), target, false);
+                player = new NClanPlayer(p.getUniqueId().toString(), p.getName(), target, false);
 
                 clan = player.fetchClan();
 
@@ -318,7 +322,7 @@ public class ClanCommand implements CommandExecutor, TabCompleter {
                 Message.u_left_clan.send(p);
                 clan.broadcast(Message.player_left_clan.replace("{player}", sender.getName()).toString());
                 NClans.getInstance().getDatabase().getCooldowns().update()
-                        .replace(new NClanCooldown(p.getName(),
+                        .replace(new NClanCooldown(p.getUniqueId().toString(), p.getName(),
                                 System.currentTimeMillis() + Config.clanLeaveCooldown));
                 Util.broadcastRefresh();
                 return;
@@ -559,7 +563,7 @@ public class ClanCommand implements CommandExecutor, TabCompleter {
         var members = clan == null ? new ArrayList<String>() : NClans.getInstance().getCache().getClanMembers(clan);
         if (args.length == 2) {
             if (isAdmin && args[0].equalsIgnoreCase("admin")) {
-                return Lists.newArrayList("refresh", "reload").stream().filter(a -> StringUtil.startsWithIgnoreCase(a, args[1])).toList();
+                return Lists.newArrayList("refresh", "reload", "online-players").stream().filter(a -> StringUtil.startsWithIgnoreCase(a, args[1])).toList();
             }
             if (hasClan) {
                 if (args[0].equalsIgnoreCase("invite")) {

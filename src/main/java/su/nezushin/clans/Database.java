@@ -7,16 +7,18 @@ import org.bukkit.configuration.file.FileConfiguration;
 import su.nezushin.clans.db.*;
 import su.nezushin.clans.util.Config;
 
+import java.io.File;
+
 public class Database {
 
 
-    private AnvilORMTable<NClan> clans;
-    private AnvilORMTable<NClanPlayer> players;
-    private AnvilORMTable<NClanInvitation> invitations;
-    private AnvilORMTable<NClanCooldown> cooldowns;
-    private AnvilORMTable<NClanTeleport> teleports;
-    private AnvilORMTable<NClanMessage> messages;
-    private AnvilORMTable<NClanAvailableServer> availableServers;
+    private final AnvilORMTable<NClan> clans;
+    private final AnvilORMTable<NClanPlayer> players;
+    private final AnvilORMTable<NClanInvitation> invitations;
+    private final AnvilORMTable<NClanCooldown> cooldowns;
+    private final AnvilORMTable<NClanTeleport> teleports;
+    private final AnvilORMTable<NClanMessage> messages;
+    private final AnvilORMTable<NClanAvailableServer> availableServers;
 
     public Database() {
         clans = createTable(Config.config, NClan.class, "nclans_clans");
@@ -57,7 +59,11 @@ public class Database {
     }
 
     public <T extends AnvilORMSerializable> AnvilORMTable<T> createTable(FileConfiguration config, Class<T> clazz, String name) {
-        return AnvilORMFactory.factory().buildMysqlTable(clazz, name, config.getString("mysql.host"), config.getInt("mysql.port"),
-                config.getString("mysql.database"), config.getString("mysql.user"), config.getString("mysql.passowrd"), config.getBoolean("mysql.ssl", true));
+        if (Config.useMysql)
+            return AnvilORMFactory.factory().buildMysqlTable(clazz, name, config.getString("database.mysql.host"),
+                    config.getInt("database.mysql.port"), config.getString("database.mysql.database"),
+                    config.getString("database.mysql.user"), config.getString("database.mysql.password"),
+                    config.getBoolean("database.mysql.ssl", true));
+        return AnvilORMFactory.factory().buildSqliteTable(clazz, name, new File(NClans.getInstance().getDataFolder() + File.separator + "database.db"));
     }
 }

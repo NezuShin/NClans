@@ -43,9 +43,10 @@ public class NClanListener implements Listener {
 
     @EventHandler
     public void join(PlayerJoinEvent e) {
+        Player p = e.getPlayer();
         NClans.getInstance().getCache().refreshCache();
-        NClans.getInstance().getTeleporter().postServerTeleport(e.getPlayer());
-        Util.refreshLastJoin(e.getPlayer());
+        NClans.getInstance().getTeleporter().postServerTeleport(p);
+        Util.refreshLastJoin(p);
     }
 
     @EventHandler

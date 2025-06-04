@@ -1,4 +1,4 @@
-package su.nezushin.clans.cache;
+package su.nezushin.clans.cache.playerlist;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
@@ -11,20 +11,26 @@ import su.nezushin.clans.NClans;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class ProxyPlayerList implements PluginMessageListener {
+public class ProxyPlayerList implements PluginMessageListener, PlayerList {
 
     private List<String> players = new ArrayList<>();
+
+    private int taskId = -1;
 
     public ProxyPlayerList() {
         Bukkit.getMessenger().registerOutgoingPluginChannel(NClans.getInstance(), "BungeeCord");
         Bukkit.getMessenger().registerIncomingPluginChannel(NClans.getInstance(), "BungeeCord", this);
-        Bukkit.getScheduler().runTaskTimerAsynchronously(NClans.getInstance(), this::queryPlayerList, 5 * 20, 5 * 20);
+        taskId = Bukkit.getScheduler().runTaskTimerAsynchronously(NClans.getInstance(), this::queryPlayerList, 5 * 20, 5 * 20).getTaskId();
     }
 
     public void close() {
         Bukkit.getMessenger().unregisterIncomingPluginChannel(NClans.getInstance(), "BungeeCord", this);
+        if (taskId != -1)
+            Bukkit.getScheduler().cancelTask(taskId);
     }
+
 
     private void sendMessage(String... message) {
         var players = new ArrayList<>(Bukkit.getOnlinePlayers());
@@ -53,7 +59,9 @@ public class ProxyPlayerList implements PluginMessageListener {
             return;
         ByteArrayDataInput in = ByteStreams.newDataInput(message);
         if (in.readUTF().equalsIgnoreCase("PlayerList") && in.readUTF().equalsIgnoreCase("ALL")) {
-            this.players = Arrays.stream(in.readUTF().split(",")).map(String::trim).toList();
+            var set = Arrays.stream(in.readUTF().split(",")).map(String::trim).collect(Collectors.toSet());
+            set.addAll(Bukkit.getOnlinePlayers().stream().map(Player::getName).toList());
+            players = new ArrayList<>(set);
         }
     }
 }

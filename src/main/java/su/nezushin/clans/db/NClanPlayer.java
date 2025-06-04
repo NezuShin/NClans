@@ -11,6 +11,8 @@ import su.nezushin.clans.enums.ClanGroup;
 public class NClanPlayer implements AnvilORMSerializable {
 
     @SqlColumn(type = SqlType.VARCHAR, flags = SqlFlag.PRIMARY_KEY)
+    private String id;
+    @SqlColumn(type = SqlType.VARCHAR/*, flags = SqlFlag.UNIQUE*/)
     private String player;
     @SqlColumn(type = SqlType.VARCHAR, name = "clan")
     private String clan;
@@ -26,10 +28,19 @@ public class NClanPlayer implements AnvilORMSerializable {
 
     }
 
-    public NClanPlayer(String player, String clan, boolean isCurator) {
+    public NClanPlayer(String id, String player, String clan, boolean isCurator) {
+        this.id = id;
         this.player = player;
         this.clan = clan;
         this.isCurator = isCurator;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getPlayer() {

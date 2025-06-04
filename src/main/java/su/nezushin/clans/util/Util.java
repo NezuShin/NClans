@@ -55,7 +55,7 @@ public class Util {
         Bukkit.getScheduler().runTaskAsynchronously(NClans.getInstance(), () -> {
             NClans.getInstance().getDatabase().getPlayers().update()
                     .set("last_join", System.currentTimeMillis())
-                    .where("player", player.getName())
+                    .where("id", player.getUniqueId().toString())
                     .complete();
         });
     }
