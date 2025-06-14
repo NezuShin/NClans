@@ -105,7 +105,7 @@ public class NClanPlayer implements AnvilORMSerializable {
             return false;
         }
 
-        boolean isOwner = fetchedClan.getOwner().equals(this.player);
+        boolean isOwner = fetchedClan.getOwnerId().equals(this.id);
 
         if (isOwner) return true;
 

@@ -147,7 +147,7 @@ public class ClanCommand implements CommandExecutor, TabCompleter {
                 Util.broadcastRefresh();
                 return;
             } else if (args[0].equalsIgnoreCase("delete")) {
-                if (!clan.getOwner().equals(p.getName())) {
+                if (!clan.getOwnerId().equals(p.getUniqueId().toString())) {
                     Message.u_dont_have_permission.send(sender);
                     return;
                 }
@@ -289,14 +289,17 @@ public class ClanCommand implements CommandExecutor, TabCompleter {
 
                 return;
             } else if (args[0].equalsIgnoreCase("owner") && args.length >= 2) {
-                if (!clan.getOwner().equals(p.getName())) {
+                if (!clan.getOwnerId().equals(p.getUniqueId().toString())) {
                     Message.u_dont_have_permission.send(sender);
                     return;
                 }
                 String name = correctName(args[1], clan);
                 var members = clan.getFetchedPlayers();
 
-                if (members.stream().noneMatch(i -> i.getPlayer().equalsIgnoreCase(name))) {
+
+                var member = members.stream().filter(i -> i.getPlayer().equalsIgnoreCase(name)).findFirst().orElse(null);
+
+                if (member == null) {
                     Message.member_not_found.replace("{member}", name).send(p);
                     return;
                 }
@@ -307,14 +310,15 @@ public class ClanCommand implements CommandExecutor, TabCompleter {
                 }
 
                 if (args[2].equalsIgnoreCase("confirm")) {
-                    clan.setOwner(name);
+                    clan.setOwnerName(name);
+                    clan.setOwnerId(member.getId());
                     clan.save();
                     Message.owner_moved.send(sender);
                     Util.broadcastRefresh();
                     return;
                 }
             } else if (args[0].equalsIgnoreCase("leave")) {
-                if (clan.getOwner().equalsIgnoreCase(p.getName())) {
+                if (clan.getOwnerId().equalsIgnoreCase(p.getUniqueId().toString())) {
                     Message.u_cannot_leave_ur_clan.send(p);
                     return;
                 }
@@ -368,7 +372,11 @@ public class ClanCommand implements CommandExecutor, TabCompleter {
                     }
                 }
                 var players = target.fetchPlayers();
-                Message.clan_info.replace("{display-name}", Message.translateCodes(target.getDisplayName()), "{name}", target.getName(), "{owner}", target.getOwner(), "{curators}", stringListToString(players.stream().filter(NClanPlayer::isCurator).map(NClanPlayer::getPlayer).toList(), Message.clan_info_curators_format), "{members}", stringListToString(players.stream().filter(i -> !i.isCurator()).map(NClanPlayer::getPlayer).toList(), Message.clan_info_curators_format)).send(p);
+                Message.clan_info.replace("{display-name}", Message.translateCodes(target.getDisplayName()),
+
+                        "{name}", target.getName(), "{owner}", target.getOwnerName(), "{curators}",
+                        stringListToString(players.stream().filter(NClanPlayer::isCurator).map(NClanPlayer::getPlayer).toList(),
+                                Message.clan_info_curators_format), "{members}", stringListToString(players.stream().filter(i -> !i.isCurator()).map(NClanPlayer::getPlayer).toList(), Message.clan_info_curators_format)).send(p);
 
                 return;
             } else if (args[0].equalsIgnoreCase("deposit") && Config.useVault && args.length == 2) {
@@ -466,7 +474,7 @@ public class ClanCommand implements CommandExecutor, TabCompleter {
                 clan.broadcast(Message.home_deleted.get().toString());
                 return;
             } else if (args[0].equalsIgnoreCase("permissions")) {
-                if (!clan.getOwner().equals(p.getName())) {
+                if (!clan.getOwnerId().equals(p.getUniqueId().toString())) {
                     Message.u_dont_have_permission.send(sender);
                     return;
                 }

@@ -31,8 +31,10 @@ public class NClan implements AnvilORMSerializable {
     private boolean friendlyFire;
     @SqlColumn(type = SqlType.BOOLEAN, name = "join_alarm")
     private boolean joinAlarm;
-    @SqlColumn(type = SqlType.VARCHAR)
-    private String owner;
+    @SqlColumn(type = SqlType.VARCHAR, name = "owner_name")
+    private String ownerName;
+    @SqlColumn(type = SqlType.VARCHAR, name = "owner_id")
+    private String ownerId;
 
     @SqlColumn(type = SqlType.VARCHAR, name = "home_server")
     private String homeServer;
@@ -114,7 +116,8 @@ public class NClan implements AnvilORMSerializable {
 
     public NClan(Player p, String name) {
         this.name = name;
-        this.owner = p.getName();
+        this.ownerId = p.getUniqueId().toString();
+        this.ownerName = p.getName();
         this.displayName = "&r&7" + name;
         this.createdAt = System.currentTimeMillis();
         this.nextTaxesTake = System.currentTimeMillis() + Config.taxesTakePeriod;
@@ -197,14 +200,21 @@ public class NClan implements AnvilORMSerializable {
         this.home = home;
     }
 
-    public String getOwner() {
-        return owner;
+    public String getOwnerName() {
+        return ownerName;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
+    }
 
     public boolean isJoinAlarm() {
         return joinAlarm;

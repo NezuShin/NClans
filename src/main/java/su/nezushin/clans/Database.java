@@ -11,7 +11,6 @@ import java.io.File;
 
 public class Database {
 
-
     private final AnvilORMTable<NClan> clans;
     private final AnvilORMTable<NClanPlayer> players;
     private final AnvilORMTable<NClanInvitation> invitations;
