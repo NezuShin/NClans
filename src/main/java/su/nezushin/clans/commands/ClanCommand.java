@@ -221,7 +221,7 @@ public class ClanCommand implements CommandExecutor, TabCompleter {
                 NClans.getInstance().getDatabase().getInvitations().delete().where("id", invitation.getId()).compete();
 
                 NClans.getInstance().getDatabase().getPlayers().update().replace(player);
-                Message.u_joined_clan.replace("{clan}", clan.getDisplayName()).send(p);
+                Message.u_joined_clan.replace("{clan}", Message.translateCodes(clan.getDisplayName())).send(p);
                 clan.broadcast(Message.player_join_clan.replace("{player}", sender.getName()).toString());
                 Util.broadcastRefresh();
             } else if (args[0].equalsIgnoreCase("displayname") && args.length == 2) {
@@ -353,7 +353,7 @@ public class ClanCommand implements CommandExecutor, TabCompleter {
                 if ((t = Bukkit.getPlayerExact(target)) != null && t.isOnline()) {
                     Message.u_have_been_kicked.send(t);
                 }
-                clan.broadcast(Message.player_kicked_from_clan.replace("{player}", target).toString());
+                clan.broadcast(Message.player_kicked_from_clan.replace("{player}", target).replace("{sender}", sender.getName()).toString());
                 Util.broadcastRefresh();
                 return;
             } else if (args[0].equalsIgnoreCase("info")) {

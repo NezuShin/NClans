@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -141,6 +142,12 @@ public enum Message {
 
         public ChatMessageSender forward(String player) {
             try {
+                Player p;
+                if ((p = Bukkit.getPlayerExact(player)) != null) {
+                    send(p);
+                    return this;
+                }
+
                 Util.forwardMessage(player, String.join("\n", msg));
             } catch (Exception e) {
                 // DiscordAuth.severe("While sending message occured exception", e);
