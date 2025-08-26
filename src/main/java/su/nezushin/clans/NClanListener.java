@@ -19,7 +19,7 @@ public class NClanListener implements Listener {
         if (!(e.getEntity() instanceof Player p2))
             return;
 
-        if (!NClans.getInstance().getCache().canDamage(p, p2))
+        if (NClans.getInstance().getCache().canDamage(p, p2))
             return;
 
         e.setCancelled(true);
