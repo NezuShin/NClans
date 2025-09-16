@@ -147,6 +147,7 @@ public class NClan implements AnvilORMSerializable {
             Bukkit.getScheduler().scheduleSyncDelayedTask(NClans.getInstance(), () -> {
                 broadcast(Message.tax_taken.get().replace("{tax_price_total}", String.valueOf(total)).toString());
             });
+        this.nextTaxesTake = System.currentTimeMillis() + Config.taxesTakePeriod;
         save();
     }
 

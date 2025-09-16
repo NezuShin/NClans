@@ -387,14 +387,24 @@ public class ClanCommand implements CommandExecutor, TabCompleter {
                     Message.err_incorrect_number.send(p);
                     return;
                 }
-                if (amount > NClans.getInstance().getEconomy().getBalance(p)) {
-                    Message.u_dont_have_enough_money.send(p);
+                if (amount <= 0) {
+                    Message.err_incorrect_number.send(p);
                     return;
                 }
-                NClans.getInstance().getEconomy().withdraw(p, amount);
-                clan.setBalance(clan.getBalance() + amount);
-                clan.save();
-                Message.clan_deposit_success.replace("{balance}", String.valueOf(clan.getBalance())).send(p);
+                NClan finalClan = clan;
+                Bukkit.getScheduler().scheduleSyncDelayedTask(NClans.getInstance(), () -> {
+
+                    if (amount > NClans.getInstance().getEconomy().getBalance(p)) {
+                        Message.u_dont_have_enough_money.send(p);
+                        return;
+                    }
+                    NClans.getInstance().getEconomy().withdraw(p, amount);
+                    Bukkit.getScheduler().runTaskAsynchronously(NClans.getInstance(), () -> {
+                        finalClan.setBalance(finalClan.getBalance() + amount);
+                        finalClan.save();
+                        Message.clan_deposit_success.replace("{balance}", String.valueOf(finalClan.getBalance())).send(p);
+                    });
+                });
                 return;
             } else if ((args[0].equalsIgnoreCase("money")
                     || args[0].equalsIgnoreCase("balance")
