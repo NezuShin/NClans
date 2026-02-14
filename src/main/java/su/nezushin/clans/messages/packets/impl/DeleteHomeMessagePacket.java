@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import su.nezushin.clans.events.ClanHomeDeleteEvent;
 import su.nezushin.clans.messages.packets.MessagePacket;
 import su.nezushin.clans.messages.packets.MessageType;
+import su.nezushin.clans.util.NClanLocation;
 import su.nezushin.clans.util.YamlStringSerializer;
 
 import java.io.DataInputStream;
@@ -49,7 +50,7 @@ public class DeleteHomeMessagePacket extends MessagePacket {
     public void exec() {
         Bukkit.getPluginManager().callEvent(new ClanHomeDeleteEvent(
                 clan,
-                YamlStringSerializer.deserializeConfigurationSerializable(this.location, Location.class),
+                YamlStringSerializer.deserializeConfigurationSerializable(this.location, NClanLocation.class).toLocation(),
                 server
         ));
     }

@@ -13,6 +13,15 @@ import java.util.Map;
 
 public class YamlStringSerializer {
 
+    public static String serializeLocationWithoutWorld(ConfigurationSerializable cs) {
+
+        var conf = new YamlConfiguration();
+
+        conf.set("value", cs);
+
+        return conf.saveToString();
+    }
+
     public static String serializeConfigurationSerializable(ConfigurationSerializable cs) {
 
         var conf = new YamlConfiguration();

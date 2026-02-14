@@ -1,6 +1,7 @@
 package su.nezushin.clans.cache;
 
 import org.bukkit.Location;
+import su.nezushin.clans.util.NClanLocation;
 
 import java.util.List;
 
@@ -9,9 +10,9 @@ public class CachedPlayer {
     private String clanDisplayname;
     private String clanName;
     private boolean friendlyFire;
-    private Location homeLocation;
+    private NClanLocation homeLocation;
 
-    public CachedPlayer(String clanDisplayname, String clanName, boolean friendlyFire, Location homeLocation) {
+    public CachedPlayer(String clanDisplayname, String clanName, boolean friendlyFire, NClanLocation homeLocation) {
         this.clanDisplayname = clanDisplayname;
         this.clanName = clanName;
         this.friendlyFire = friendlyFire;
@@ -44,11 +45,11 @@ public class CachedPlayer {
     }
 
 
-    public Location getHomeLocation() {
+    public NClanLocation getHomeLocation() {
         return homeLocation;
     }
 
-    public void setHomeLocation(Location homeLocation) {
+    public void setHomeLocation(NClanLocation homeLocation) {
         this.homeLocation = homeLocation;
     }
 }

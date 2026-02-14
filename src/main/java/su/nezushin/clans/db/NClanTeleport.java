@@ -8,6 +8,7 @@ import su.nezushin.anvil.orm.table.SqlColumn;
 import su.nezushin.clans.NClans;
 import su.nezushin.clans.enums.ClanAction;
 import su.nezushin.clans.enums.ClanGroup;
+import su.nezushin.clans.util.NClanLocation;
 import su.nezushin.clans.util.YamlStringSerializer;
 
 public class NClanTeleport implements AnvilORMSerializable {
@@ -19,13 +20,13 @@ public class NClanTeleport implements AnvilORMSerializable {
     @SqlColumn(type = SqlType.VARCHAR, name = "location")
     private String locationString;
 
-    private Location location;
+    private NClanLocation location;
 
     public NClanTeleport() {
 
     }
 
-    public NClanTeleport(String player, Location location) {
+    public NClanTeleport(String player, NClanLocation location) {
         this.location = location;
         this.player = player;
         this.expire = System.currentTimeMillis() + 20000;
@@ -33,7 +34,7 @@ public class NClanTeleport implements AnvilORMSerializable {
 
     @Override
     public void onDeserialize() {
-        location = YamlStringSerializer.deserializeConfigurationSerializable(locationString, Location.class);
+        location = YamlStringSerializer.deserializeConfigurationSerializable(locationString, NClanLocation.class);
     }
 
     @Override
@@ -49,11 +50,11 @@ public class NClanTeleport implements AnvilORMSerializable {
         this.player = player;
     }
 
-    public Location getLocation() {
+    public NClanLocation getLocation() {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(NClanLocation location) {
         this.location = location;
     }
 

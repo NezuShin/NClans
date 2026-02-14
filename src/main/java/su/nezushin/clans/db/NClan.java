@@ -18,6 +18,7 @@ import su.nezushin.clans.enums.ClanTax;
 import su.nezushin.clans.messages.packets.impl.BroadcastClanMsgMessagePacket;
 import su.nezushin.clans.msg.Message;
 import su.nezushin.clans.util.Config;
+import su.nezushin.clans.util.NClanLocation;
 import su.nezushin.clans.util.Util;
 import su.nezushin.clans.util.YamlStringSerializer;
 
@@ -49,7 +50,6 @@ public class NClan implements AnvilORMSerializable {
     @SqlColumn(type = SqlType.BIGINT, name = "created_at")
     private long createdAt;
 
-
     @SqlColumn(type = SqlType.BIGINT, name = "next_taxes_take")
     private long nextTaxesTake;
 
@@ -57,7 +57,7 @@ public class NClan implements AnvilORMSerializable {
     private double balance;
 
 
-    private Location home;
+    private NClanLocation home;
     private Map<ClanAction, ClanGroup> permissions = new HashMap<>();
 
     @Override
@@ -68,7 +68,7 @@ public class NClan implements AnvilORMSerializable {
 
     @Override
     public void onDeserialize() {
-        this.home = YamlStringSerializer.deserializeConfigurationSerializable(homeString, Location.class);
+        this.home = YamlStringSerializer.deserializeConfigurationSerializable(homeString, NClanLocation.class);
         this.permissions = YamlStringSerializer.deserializePermissionMap(permissionsString);
     }
 
@@ -193,11 +193,11 @@ public class NClan implements AnvilORMSerializable {
         this.friendlyFire = friendlyFire;
     }
 
-    public Location getHome() {
+    public NClanLocation getHome() {
         return home;
     }
 
-    public void setHome(Location home) {
+    public void setHome(NClanLocation home) {
         this.home = home;
     }
 

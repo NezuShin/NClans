@@ -33,6 +33,7 @@ public class NClanPlayer implements AnvilORMSerializable {
         this.player = player;
         this.clan = clan;
         this.isCurator = isCurator;
+        this.lastJoin = System.currentTimeMillis();
     }
 
     public String getId() {

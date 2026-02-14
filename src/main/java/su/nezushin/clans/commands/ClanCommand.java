@@ -33,6 +33,7 @@ import su.nezushin.clans.events.ClanHomeDeleteEvent;
 import su.nezushin.clans.messages.packets.impl.DeleteHomeMessagePacket;
 import su.nezushin.clans.msg.Message;
 import su.nezushin.clans.util.Config;
+import su.nezushin.clans.util.NClanLocation;
 import su.nezushin.clans.util.Util;
 import su.nezushin.clans.util.YamlStringSerializer;
 
@@ -56,6 +57,7 @@ public class ClanCommand implements CommandExecutor, TabCompleter {
                 if (args[1].equalsIgnoreCase("reload")) {
                     NClans.getInstance().unload();
                     NClans.getInstance().load();
+                    Util.broadcastRefresh();
                     sender.sendMessage("Reloaded!");
                     return true;
                 }
@@ -450,7 +452,7 @@ public class ClanCommand implements CommandExecutor, TabCompleter {
                     Message.u_dont_have_permission.send(sender);
                     return;
                 }
-                clan.setHome(p.getLocation());
+                clan.setHome(new NClanLocation(p.getLocation()));
                 clan.setHomeServer(Config.server);
                 clan.save();
                 Util.broadcastRefresh();
@@ -466,7 +468,7 @@ public class ClanCommand implements CommandExecutor, TabCompleter {
                 }
                 if (clan.getHomeServer().equalsIgnoreCase(Config.server)) {
                     String clanName = clan.getName();
-                    Location clanHome = clan.getHome();
+                    Location clanHome = clan.getHome().toLocation();
                     String clanHomeServer = clan.getHomeServer();
                     Bukkit.getScheduler().scheduleSyncDelayedTask(NClans.getInstance(), () -> {
                         Bukkit.getPluginManager().callEvent(new ClanHomeDeleteEvent(clanName, clanHome, clanHomeServer));

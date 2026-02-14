@@ -108,7 +108,7 @@ messages:
   clan-tax-offline-players: 'Fee for offline players'
   clan-tax-additional-max-players: 'Penalty for too many players'
   clan-tax-additional-min-players: 'Penalty for too few players'
-  clan-deposit-success: '&b&lclans &6>>&r <reset><#008f9a>Clan balance replenished. Now it’s <#08c0c2>{balance}<#008f9a>.'
+  clan-deposit-success: "&b&lclans &6>>&r <reset><#008f9a>Clan balance replenished. Now it’s <#08c0c2>{balance}<#008f9a>."
   clan-balance:
     - '&b&lclans &6>>&r <reset><#008f9a>Clan balance: <#08c0c2>{balance}<#008f9a>.'
     - '&b&lclans &6>>&r <reset><#008f9a>This amount covers <#08c0c2>{days_remaining}<#008f9a> days of clan existence.'

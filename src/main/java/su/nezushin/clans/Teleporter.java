@@ -1,5 +1,6 @@
 package su.nezushin.clans;
 
+import io.papermc.paper.math.Position;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -7,6 +8,7 @@ import su.nezushin.clans.db.NClanInvitation;
 import su.nezushin.clans.db.NClanTeleport;
 import su.nezushin.clans.msg.Message;
 import su.nezushin.clans.util.Config;
+import su.nezushin.clans.util.NClanLocation;
 import su.nezushin.clans.util.Util;
 
 import java.util.HashMap;
@@ -33,12 +35,12 @@ public class Teleporter {
         return teleportDelay.containsKey(player);
     }
 
-    public void teleport(Player player, String server, Location location) {
+    public void teleport(Player player, String server, NClanLocation location) {
         int id;
         if (Config.server.equalsIgnoreCase(server)) {
             id = Bukkit.getScheduler().scheduleSyncDelayedTask(NClans.getInstance(), () -> {
                 Message.teleporting.send(player);
-                player.teleportAsync(location).thenRun(() -> {
+                player.teleportAsync(location.toLocation()).thenRun(() -> {
                     player.playSound(player.getLocation(), "entity.enderman.teleport", 1.0f, 1.0f);
                     teleportDelay.remove(player);
                 });
@@ -63,7 +65,7 @@ public class Teleporter {
             NClans.getInstance().getDatabase().getTeleports().delete().where("player", player.getName()).compete();
             if (teleport != null) {
                 //Can i do it async ?...
-                player.teleportAsync(teleport.getLocation()).thenRun(() -> {
+                player.teleportAsync(teleport.getLocation().toLocation()).thenRun(() -> {
                     player.playSound(player.getLocation(), "entity.enderman.teleport", 1.0f, 1.0f);
                     player.removeScoreboardTag("NCLANS_PREVENT_DAMAGE");
                 });
